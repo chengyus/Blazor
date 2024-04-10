@@ -1,0 +1,40 @@
+﻿@page "/counter"
+@rendermode InteractiveServer
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="() => currentCount+= 2">Click me</button>
+
+<div class="mt-3">
+<input @bind="text" @bind:event="oninput" />
+<button @onclick="Clear">Clear</button>
+<p>@text</p>
+</div>
+
+@code {
+	private int currentCount = 0;
+	string text = "";
+
+	[Parameter]
+	public int IncrementAmount { get; set; } = 1;
+
+	private void IncrementCount()
+	{
+		currentCount+=IncrementAmount;
+	}
+
+	private async Task IncrementCountAsync()
+	{
+		await Task.Delay(1000);
+		currentCount += IncrementAmount;
+	}
+
+	private void Clear(MouseEventArgs e)
+	{
+		text = "";
+	}
+}
